@@ -43,11 +43,16 @@ class GCALS(nn.Module):
         return loss
 
 
+def get_resnet18(num_classes, stride):
+    model = torchvision.models.resnet18(num_classes=num_classes)
+    model.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=stride, padding=1, bias=False)
+    model.maxpool = nn.Identity()
+
+    return model
 
 
-def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None, label_smoothing=0.0, num_classes=None, model_generator=None, stride=None, device=None):
-
-  model = model_generator(num_classes=num_classes)
+def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None, label_smoothing=0.0, num_classes=None, stride=None, device=None):
+  model = get_resnet18(num_classes=num_classes, stride=stride)
 
   if torch.cuda.device_count() > 1:
     print(f"Using {torch.cuda.device_count()} GPUs for training!")
@@ -140,9 +145,3 @@ def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None,
   return train_loss_log, test_loss_log, test_acc_log, label_smoothing_log
 
 
-def get_resnet18(num_classes, stride):
-    model = torchvision.models.resnet18(num_classes=num_classes)
-    model.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=stride, padding=1, bias=False)
-    model.maxpool = nn.Identity()
-
-    return model
