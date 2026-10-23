@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gcals"
+version = "0.1.0"
+description = "Gradient Controlled Adaptive Label Smoothing"
+dependencies = [
+    # Add your project dependencies here, e.g.:
+    # "torch>=2.0",
+    # "numpy",
+]
