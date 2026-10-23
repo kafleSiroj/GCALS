@@ -6,8 +6,8 @@ build-backend = "setuptools.build_meta"
 name = "gcals"
 version = "0.1.0"
 description = "Gradient Controlled Adaptive Label Smoothing"
-dependencies = [
-    # Add your project dependencies here, e.g.:
-    # "torch>=2.0",
-    # "numpy",
-]
+requires-python = ">=3.8"
+
+# Crucial fix: Force setuptools to treat root modules as the package
+[tool.setuptools]
+py-modules = ["utils", "data_loaders"]
