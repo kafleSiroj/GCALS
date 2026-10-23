@@ -45,7 +45,7 @@ class GCALS(nn.Module):
 
 
 
-def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None, label_smoothing=0.0, num_classes=None, model_generator=None, device=None):
+def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None, label_smoothing=0.0, num_classes=None, model_generator=None, stride=None, device=None):
 
   model = model_generator(num_classes=num_classes)
 
