@@ -51,7 +51,7 @@ def get_resnet18(num_classes, stride):
     return model
 
 
-def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None, label_smoothing=0.0, num_classes=None, stride=None, device=None):
+def train_track(num_epochs=None, criterion=None, train_loader=None, test_loader=None, mode=None, label_smoothing=0.0, num_classes=None, stride=None, device=None):
   model = get_resnet18(num_classes=num_classes, stride=stride)
 
   if torch.cuda.device_count() > 1:
@@ -61,14 +61,6 @@ def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None,
   model = model.to(device)
 
   optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
-
-
-  if mode == "gcals":
-    criterion = GCALS(label_smoothing_max=label_smoothing)
-  elif mode == "static":
-    criterion = lambda lg, tg: F.cross_entropy(lg, tg, label_smoothing=label_smoothing)
-  else:
-    criterion = lambda lg, tg: F.cross_entropy(lg, tg, label_smoothing=0.0)
 
   train_loss_log = []
   test_loss_log = []
