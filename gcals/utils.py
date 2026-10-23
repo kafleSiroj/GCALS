@@ -140,9 +140,9 @@ def train_track(num_epochs=None, train_loader=None, test_loader=None, mode=None,
   return train_loss_log, test_loss_log, test_acc_log, label_smoothing_log
 
 
-def get_resnet18(num_classes, stride, kernel_size, padding, bias):
+def get_resnet18(num_classes, stride):
     model = torchvision.models.resnet18(num_classes=num_classes)
-    model.conv1 = nn.Conv2d(3, 64, kernel_size=kernel_size, stride=stride, padding=padding, bias=bias)
+    model.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=stride, padding=1, bias=False)
     model.maxpool = nn.Identity()
 
     return model
