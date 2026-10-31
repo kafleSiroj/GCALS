@@ -31,9 +31,9 @@ class GCALS(nn.Module):
 
               self.gamma = f_reg_norm / (f_grad_norm + 1e-8)
 
-              target_label_smoothing = max(self.label_smoothing_min, self.label_smoothing_max * (1.0 - math.exp(-self.gamma)))
+              target_label_smoothing = self.label_smoothing_max * (1.0 - math.exp(-self.gamma))
 
-              self.label_smoothing = self.beta * target_label_smoothing + (1 - self.beta) * self.label_smoothing
+              self.label_smoothing = max(self.label_smoothing_min, self.beta * target_label_smoothing + (1 - self.beta) * self.label_smoothing)
 
 
 
