@@ -63,7 +63,8 @@ def train_track(num_epochs=None, criterion=None, train_loader=None, test_loader=
     
   model = model.to(device)
 
-  optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
+  optimizer = torch.optim.SGD(model.parameters(), lr=0.1, weight_decay=5e-4, momentum=0.9)
+  scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer=optimizer, T_max=num_epochs)
 
   train_loss_log = []
   test_loss_log = []
@@ -135,6 +136,8 @@ def train_track(num_epochs=None, criterion=None, train_loader=None, test_loader=
         f"Accuracy: {epoch_acc:.2f}% | "
         f"ε: {current_eps:.5f}"
     )
+
+    scheduler.step()
 
 
   return train_loss_log, test_loss_log, test_acc_log, label_smoothing_log
