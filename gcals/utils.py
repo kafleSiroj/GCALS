@@ -33,7 +33,7 @@ class GCALS(nn.Module):
 
               target_label_smoothing = max(self.label_smoothing_min, self.label_smoothing_max * (1.0 - math.exp(-self.gamma)))
 
-              self.label_smoothing = (1.0 - self.beta) * target_label_smoothing + self.beta * self.label_smoothing
+              self.label_smoothing = self.beta * target_label_smoothing + (1 - self.beta) * self.label_smoothing
 
 
 
