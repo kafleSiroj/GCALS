@@ -11,7 +11,7 @@ class GCALS(nn.Module):
         self.label_smoothing_min = label_smoothing_min
         self.label_smoothing = label_smoothing_min
         self.label_smoothing_max = label_smoothing_max
-        self.practical_max = label_smoothing_max * 1.6
+        self.practical_max = label_smoothing_max * (1 + (1 - math.exp(-1)) )
         self.gamma = 0.0
         self.beta = beta
 
